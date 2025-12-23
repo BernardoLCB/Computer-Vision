@@ -5,40 +5,24 @@ import numpy as np
 
 def findContour(contour):
 
-    def is_circle(contour, tolerance=0.8):
-        area = cv2.contourArea(contour)
-        perimeter = cv2.arcLength(contour, True)
-        
-        if perimeter == 0:
-            return False
-            
-        circularity = (4 * np.pi * area) / (perimeter * perimeter)
-        
-        # Círculo perfeito = 1.0, círculo real ≈ 0.7-1.0
-        return circularity >= tolerance
-    
-
     min_area = 1000
-
     approx = cv2.approxPolyDP(contour, 0.01*cv2.arcLength(contour, True), True)
 
     name_contour = None
     color = None
 
-    if (len(approx) == 4 and cv2.contourArea(contour) >= min_area):
-
-        name_contour = "Square"
-        color = (0, 0, 255) #vermelho
-
-    elif (not is_circle(contour, 0.7) and (len(approx) > 4 and len(approx) <=16 ) and (cv2.contourArea(contour) >= min_area)):
-        name_contour = "Cross"
+    if (len(approx) == 3 and cv2.contourArea(contour) >= min_area):
+        name_contour = "Triangle"
         color = (0, 255, 0) #verde
-
-
-    elif (is_circle(contour, 0.7) and (cv2.contourArea(contour) >= min_area)):
-
-        name_contour = "Circle"
+    
+    elif (len(approx) == 5 and cv2.contourArea(contour) >= min_area):
+        name_contour = "Pentagon"
+        color = (0, 0, 255) #vermelho
+    
+    elif (len(approx) == 10 and cv2.contourArea(contour) >= min_area):
+        name_contour = "Star"
         color = (255, 0, 0) #azul
+
 
     return (name_contour, color, approx)
 
@@ -51,7 +35,7 @@ def findShapes(contours, img, hierarquia):
 
     #============================================================================#
 
-    def draw_contour(name_contour, color, approx, img, contour, ):
+    def draw_contour(name_contour, color, approx, img, contour):
         
         x, y, _, _ = cv2.boundingRect(approx)
 
@@ -74,96 +58,11 @@ def findShapes(contours, img, hierarquia):
     
 
     for i, contour in enumerate(contours):
+        name_contour, color, approx = findContour(contour)
+        choices = ["Triangle", "Pentagon", "Star"]
+        if name_contour in choices:
+            draw_contour(name_contour, color, approx, img, contour)
 
-        #_____________________________________________________________________________#
-
-        index_parent_contour = hierarquia[0][i][3] # tem 2 tipos de retorno: 1 ou -1;
-        index_son_contour = hierarquia[0][i][2]
-        # index_parent_contour = -1 significa que o atual contorno(contorno de indice i) não está contido dentro de um contorno maior, ou seja, não tem pai
-        # index_parent_contour =! -1 significa que o atual contorno(contorno de indice i) está contido dentro de um contorno maior, ou seja, ele tem um pai
-
-        #_____________________________________________________________________________#
-
-        # pega todos os contornos que tem pai, ou seja, que está contido em algo
-        if ((index_parent_contour != -1) and (findContour(contour)[0] == "Circle") and (index_son_contour != -1)): 
-
-            corrent_contour = findContour(contour)
-            father_contour = findContour(contours[index_parent_contour])
-            son_contour = findContour(contours[index_son_contour])
-
-            #print(20*"-")
-            #print(f"CONTORNO PAI    --> {father_contour[0]}     ; QUANTIDADE DE LADOS -->   {len(father_contour[2])}")
-            #print(f"CONTORNO MISTO  --> {corrent_contour[0]}    ; QUANTIDADE DE LADOS -->   {len(corrent_contour[2])}")
-            #print(f"CONTORNO FILHO  --> {son_contour[0]}        ; QUANTIDADE DE LADOS -->   {len(son_contour[2])} ")
-            
-            #draw_contour(father_contour[0],(0,0,0),father_contour[2], img, contours[index_parent_contour])
-            #draw_contour(corrent_contour[0],(255,0,0),corrent_contour[2], img, contour)
-            #draw_contour(son_contour[0],(0,0,0),son_contour[2], img, contours[index_son_contour])
-
-            #_____________________________________________________________________________#
-
-            # VALIDACAO DA BASE POR HIERARQUIA DE CONTORNO #
-            if(father_contour[0] == "Square"): # está verificando se o pai do circulo é um quadrado
-                #print("TRUE TRUE TRUE TRUETRUE TRUE TRUETRUETRUE TRUE TRUETRUE TRUETRUETRUETRUETRUETRUETRUETRUETRUE ")
-                #draw_contour(corrent_contour[0],(255,255,0),corrent_contour[2], img, contour)
-                #draw_contour(father_contour[0],(0,0,0),father_contour[2], img, contours[index_parent_contour])
-                
-                
-                
-                # focado na detecção da base TAKEOFF --> [ quadrado ( *circulo ( cruz ) ) ]
-                # if(son_contour[0] == "Circle"):
-                #     #print('é')
-                #     #draw_contour(corrent_contour[0],(255,0,0),corrent_contour[2], img, contour)
-                #     index_son_contour2 = hierarquia[0][index_son_contour][2]
-
-                #     if(index_son_contour2 != -1 ):
-                #         print("entrei")
-                #         son_contour2 = findContour(contours[index_son_contour2])
-
-                        #if(son_contour2[0] == "Circle"):
-                            #print("asdadadasd")
-                       # print("entrei") # está verificando se o há contorno filho a baixo do contorno atual
-                       
-                        # if( ((index_son_contour3 := hierarquia[0][index_son_contour2][2])) !=-1 and ( ( son_contour3 := findContour(contours[index_son_contour3]))[0] == "Cross") ):
-                            
-                        #     #print("entrei")
-                        #     draw_contour(son_contour2[0],son_contour2[1],son_contour2[2], img, contours[index_son_contour2])
-                        #     draw_contour(son_contour3[0],son_contour3[1],son_contour3[2], img, contours[index_son_contour3])
-                        #     #draw_contour(son_contour[0],son_contour[1],son_contour[2], img, contours[index_son_contour])
-
-
-                # focado na detecção da base LANDING_BASE --> [quadrado (*circulo (circulo (cruz) ) )], considere o circulo* como sendo contorno principal da analise, ou seja, é nele que a gente está verificando as hierarquias
-                if(son_contour[0] == "Circle"): #contorno circular vermelhor                    
-                    index_son_contour2 = hierarquia[0][index_son_contour][2] # está verificando se o contorno filho (circulo) do contorno circular principal tem filho, ou seja, se tem contorno abaixo dele
-
-                    if(index_son_contour2 != -1): # significa que o contorno filho existe
-                        son_contour2 = findContour(contours[index_son_contour2])
-
-
-                        if(son_contour2[0] == "Cross"):
-                            draw_contour(father_contour[0],father_contour[1],father_contour[2], img, contours[index_parent_contour])
-                            draw_contour(corrent_contour[0],corrent_contour[1],corrent_contour[2], img, contour)
-                            draw_contour(son_contour2[0],son_contour2[1],son_contour2[2], img, contours[index_son_contour2])
-                        
-
-                        elif(son_contour2[0] == "Circle"): #contorno circular amarelo
-                            index_son_contour3 = hierarquia[0][index_son_contour2][2]
-
-                            if(index_son_contour3 != -1):
-                                son_contour3 = findContour(contours[index_son_contour3])
-
-                                if(son_contour3[0] == "Circle"): # contorno circular 
-                                    index_son_contour4 =hierarquia[0][index_son_contour3][2]
-
-                                    if (index_son_contour4 != -1):
-                                        son_contour4 = findContour(contours[index_son_contour4])
-                                        
-                                        if(son_contour4[0] == "Cross"):
-                                            draw_contour(father_contour[0],father_contour[1],father_contour[2], img, contours[index_parent_contour])
-                                            draw_contour(son_contour[0],son_contour[1],son_contour[2], img, contours[index_son_contour])
-                                            draw_contour(son_contour2[0],son_contour2[1],son_contour2[2], img, contours[index_son_contour2])
-                                            #draw_contour(son_contour3[0],(255,0,255),son_contour3[2], img, contours[index_son_contour3])
-                                            draw_contour(son_contour4[0],son_contour4[1],son_contour4[2], img, contours[index_son_contour4])
 
 
 #========================================================================================#

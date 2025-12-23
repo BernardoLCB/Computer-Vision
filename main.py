@@ -35,7 +35,7 @@ choice = 0
 
 if choice == 0:
     #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture(caminho_videos+"/20.mp4")
+    cap = cv2.VideoCapture(caminho_videos+"/14.mp4")
     frame_time = 50
 else:
     frame_time = 300
@@ -66,84 +66,6 @@ while (True):
         if not ret:
             print("nao iniciou")
             break
-    
-    elif choice == 1:
-        #sorce_image = cv2.imread(caminho_imagem_base_com_lipobag+"/1.jpg")
-        #sorce_image = cv2.imread(caminho_imagem_base_com_lipobag+"/2.jpg")
-        sorce_image = cv2.imread(caminho_imagem_base_com_lipobag+"/3.jpg")
-        
-    
-
-# else:
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/1.jpg") # 0/0/0/120/1/2000/2000/2000
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/2.jpg") # 2/0/0/128/1/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/3.jpg") # VALIDAR DEPOIS
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/4.jpg") # 1/0/0/0/1/2000/2000/2000
-        
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/5.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/6.jpg") # VALIDAR DEPOIS
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/7.jpg") # 1/0/0/69/2/2000/2000/+2000
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/8.jpg") # VALIDAR DEPOIS
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/9.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/10.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/11.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/13.jpg") # 2/0/0/0/1/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/14.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/15.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/16.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/17.png") # 0/0/0/2/2000/2000/2000
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/18.png") # 0/0/0/1/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/19.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/10.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-        
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/21.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/22.jpg") # NÃO SEI SE TEM VALIDAÇÃO
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_dados + "/23.jpg") # 1/7/50/112/1/2000/2000/2000
-
-#         # #--------------------------------------------------------------------------------------#
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/1.jpg") # 2/0/0/56/2/2000/2000/2000
-        
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/2.jpg") # 1/0/0/94/2/2000/2000/2000
-        
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/3.jpg") # 0/0/0/62/2/1796/10000/10000/10000 ou 1/0/0/62/1/1796/2000/2000
-        
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/4.jpg") # 1/1/4/0/2/2000/2000/2000 ou 1/0/0/0/1/2000/10000/4000
-        
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/5.jpg") # 1/0/0/0/1/2000/2000/2000 ou 2/2/3/66/2/2000/2000/2000
-        
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/6.jpg") # 1/0/0/0/1/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/7.jpg") # 1/0/0/29/2/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/8.jpg") # 1/1/5/15/2/2000/2000/2000
-
-#         # sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/9.jpg") # 1/3/14/23/2/2000/2000/2000
-
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/10.jpg") # 2/1/3/52/2/2000/2000/8728
-        
-#         #sorce_image = cv2.imread(caminho_imagem_exemplos_criados + "/11.jpg") # 0/0/0/0/2/2000/2000/2000
-    
 
 #         if sorce_image is None:
 #             sys.exit("ERROR: COULD NOT READ THE IMAGE")
@@ -164,7 +86,7 @@ while (True):
 
     #--------------------------------------------------------------------------------------------------------#
 
-    ##---------------------CONVERTENDO A IMAGEM DE ENTRADA PARA O TOM DE CINZA#---------------------#
+    #---------------------CONVERTENDO A IMAGEM DE ENTRADA PARA O TOM DE CINZA#---------------------#
     sorce_image_gray_image = cv2.cvtColor(sorce_image, cv2.COLOR_BGR2GRAY)
     
     #---------------------APLICANDO FILTROS DE SUAVIZAÇÃO-------------------------------#
@@ -177,8 +99,7 @@ while (True):
 
     #----------------------BINARIZANDO A IMAGEM PARA QUE POSSAMOS UTILIZAR O MÉTODO QUE ENCONTRA OS CONTORNOS-------------------#
 
-
-    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 5)
+    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 6)
 
     #_,sorce_image_binarized = cv2.threshold(sorce_image_morphology_operations, sliders5, 255, cv2.THRESH_BINARY) 
 
