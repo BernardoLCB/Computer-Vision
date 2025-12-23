@@ -1,7 +1,5 @@
 from sre_constants import SUCCESS
 import cv2
-from matplotlib.patches import Circle
-from matplotlib.pyplot import draw
 import numpy as np
 
 

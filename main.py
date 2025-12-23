@@ -4,6 +4,8 @@ import sys
 import os
 from functions import findShapes, MorphologyOperations, SmoothingFilters
 
+print()
+print("-"*20)
 caminho_atual = os.path.dirname(__file__)
 
 print(f"caminho --> {caminho_atual}")
@@ -15,6 +17,8 @@ caminho_videos = os.path.join(caminho_atual,"inputs","videos")
 
 print(f"caminho final até a imagem --> {caminho_imagem_exemplos_dados}")
 print(f"caminho final até a imagem --> {caminho_imagem_exemplos_criados}")
+print("-"*20)
+print()
 
 #=====================================================================#
 
@@ -31,7 +35,7 @@ choice = 0
 
 if choice == 0:
     #cap = cv2.VideoCapture(0)
-    cap = cv2.VideoCapture(caminho_videos+"/v20.mp4")
+    cap = cv2.VideoCapture(caminho_videos+"/20.mp4")
     frame_time = 50
 else:
     frame_time = 300
