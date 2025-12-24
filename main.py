@@ -2,7 +2,10 @@ import cv2
 import numpy as np
 import sys
 import os
-from functions import findShapes, MorphologyOperations, SmoothingFilters
+from functions import MorphologyOperations, SmoothingFilters
+from shape_operations import shape_operations
+
+figure = shape_operations()
 
 print()
 print("-"*20)
@@ -99,9 +102,7 @@ while (True):
 
     #----------------------BINARIZANDO A IMAGEM PARA QUE POSSAMOS UTILIZAR O MÉTODO QUE ENCONTRA OS CONTORNOS-------------------#
 
-    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 5)
-
-    #_,sorce_image_binarized = cv2.threshold(sorce_image_morphology_operations, sliders5, 255, cv2.THRESH_BINARY) 
+    sorce_image_binarized = cv2.adaptiveThreshold(sorce_image_morphology_operations, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 15, 5) 
 
     #----------------------ENCONTRANDO OS CONTORNOS NA IMAGEM BINARIZADA-------------------------------#
 
@@ -109,8 +110,11 @@ while (True):
 
     #----------------------CHAMANDO O MÉTODO FINDSHAPES QUE ENCONTRARÁ OS CONTORNOS DOS OBJETOS----------------------#
 
-    findShapes(contours, sorce_image, hierarquia)
-    
+    #findShapes(contours, sorce_image, hierarquia)
+    #shape_operations.findCont(contours, sorce_image, hierarquia)
+    #figure.shape_operations.findContour(contours, sorce_image)
+    figure.findContour(contours, sorce_image)
+
     #----------------------ESTRUTURANDO AS IMAGENS DE MODO QUE POSSAM SER USADAS EM UMA PILHA DE EXIBIÇÃO----------------------#
 
     #gray_image = np.stack((sorce_image_gray_image,)*3, axis=-1)
