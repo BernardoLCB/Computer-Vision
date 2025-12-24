@@ -1,32 +1,49 @@
 import cv2
 import numpy as np
-import sys
 import os
-from functions import MorphologyOperations, SmoothingFilters
 from shape_operations import shape_operations
+from image_operations import image_operations
 
+#-------------------------------------------#
+
+# instanciando as classes #
 figure = shape_operations()
+image = image_operations()
 
+#-------------------------------------------#
+
+#-------------------------------------------#
+# pegando as rotas do dataset # 
 print()
 print("-"*20)
 caminho_atual = os.path.dirname(__file__)
 
 print(f"caminho --> {caminho_atual}")
 
-caminho_imagem_exemplos_dados = os.path.join(caminho_atual, "inputs", "chosen")
-caminho_imagem_exemplos_criados = os.path.join(caminho_atual, "inputs", "meus_inputs")
-caminho_imagem_base_com_lipobag = os.path.join(caminho_atual, "inputs", "base_com_lipobag")
+caminho_imagem_exemplos_dados = os.path.join(caminho_atual, "inputs", "images")
 caminho_videos = os.path.join(caminho_atual,"inputs","videos")
 
 print(f"caminho final até a imagem --> {caminho_imagem_exemplos_dados}")
-print(f"caminho final até a imagem --> {caminho_imagem_exemplos_criados}")
+print(f"caminho final até os videos --> {caminho_videos}")
 print("-"*20)
 print()
 
+#-------------------------------------------#
+
+
 #=====================================================================#
+
+# criação dos slideres#
 
 def nothing(x):
     pass
+
+
+cv2.namedWindow("CONTROL", cv2.WINDOW_NORMAL)
+cv2.namedWindow("IMAGEM-BINARIZADA / IMAGEM-CONTORNADA", cv2.WINDOW_NORMAL)
+
+cv2.createTrackbar("Sm.FT", "CONTROL", 1, 4, nothing)
+cv2.createTrackbar("Morph.FT", "CONTROL", 4, 7, nothing)
 
 #=====================================================================#
 
@@ -41,21 +58,10 @@ if choice == 0:
     cap = cv2.VideoCapture(caminho_videos+"/14.mp4")
     frame_time = 50
 else:
-    frame_time = 1000
+    frame_time = 10000
 
 #=====================================================================#
 
-cv2.namedWindow("CONTROL", cv2.WINDOW_NORMAL)
-cv2.namedWindow("IMAGEM-BINARIZADA / IMAGEM-CONTORNADA", cv2.WINDOW_NORMAL)
-
-cv2.createTrackbar("Sm.FT", "CONTROL", 1, 4, nothing)
-cv2.createTrackbar("Morph.FT", "CONTROL", 4, 7, nothing)
-#cv2.createTrackbar("Matrix.Num", "CONTROL", 0, 50, nothing)
-cv2.createTrackbar("Threshold", "CONTROL", 100, 255, nothing)
-#cv2.createTrackbar("Color", "CONTROL", 0, 2, nothing)
-#cv2.createTrackbar("Ar.Cross", "CONTROL", 2000, 100000, nothing)
-#cv2.createTrackbar("Ar.Square", "CONTROL", 2000, 100000, nothing)
-#cv2.createTrackbar("Ar.Circle", "CONTROL", 2000, 100000, nothing)
 
 #=====================================================================#
 
@@ -78,14 +84,12 @@ while (True):
     #criado um backup da foto de entrada original
     sorce_image_copy = sorce_image.copy()
 
-    #hsv_sorce_image = cv2.cvtColor(sorce_image, cv2.COLOR_BGR2HSV)
     #-------------------------------------------------------------------------------------------------------#
 
 
     #-----------------------------------FUNCIONAMENTO DOS SLIDERS--------------------------------------------#
     sliders1 = cv2.getTrackbarPos("Sm.FT", "CONTROL")               # responsável por aplicar os filtros de suavização
     sliders2 = cv2.getTrackbarPos("Morph.FT", "CONTROL")            # responsável por aplicar os filtros de morfologia
-    sliders5 = cv2.getTrackbarPos("Threshold", "CONTROL")           # responsável por aplicar o número do limiar na imagem
 
     #--------------------------------------------------------------------------------------------------------#
 
@@ -94,11 +98,11 @@ while (True):
     
     #---------------------APLICANDO FILTROS DE SUAVIZAÇÃO-------------------------------#
     
-    sorce_image_smoothing_filter = SmoothingFilters(sliders1, sorce_image_gray_image)                            
+    sorce_image_smoothing_filter = image.SmoothingFilters(sliders1, sorce_image_gray_image)                            
     
     #-------------------------------APLICANDO FILTROS MORFOLÓGICOS-------------------------------#
 
-    sorce_image_morphology_operations = MorphologyOperations(sorce_image_smoothing_filter, sliders2)
+    sorce_image_morphology_operations = image.MorphologyOperations(sorce_image_smoothing_filter, sliders2)
 
     #----------------------BINARIZANDO A IMAGEM PARA QUE POSSAMOS UTILIZAR O MÉTODO QUE ENCONTRA OS CONTORNOS-------------------#
 
