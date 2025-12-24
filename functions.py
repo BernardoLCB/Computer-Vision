@@ -9,14 +9,11 @@ class image_operations:
     def __init__(self):
         pass
 
-
-
+    
     def SmoothingFilters(self, value, img):
-        
-    #========================================================================================#
-    # Função responsável por aplicar filtros de suavização na imagem de entrada#
-    #========================================================================================#
 
+    ### Método responsável por aplicar filtros de suavização na imagem de entrada ###
+    
         #FILTRO DE GAUSS
         if value == 1:
             mask = (5,5)
@@ -44,11 +41,9 @@ class image_operations:
 
 
     def MorphologyOperations(self, img, slider_value):
-
-    #========================================================================================#
-    # Função responsável por aplicar operações morfológicas na imagem de entrada.#
-    #========================================================================================#
-
+        
+    ### Função responsável por aplicar operações morfológicas na imagem de entrada.###
+   
         value_matrix = (5,5)
         #kernel = np.ones(value_matrix , np.uint8)
 
@@ -89,7 +84,4 @@ class image_operations:
                 element_estr = cv2.getStructuringElement(cv2.MORPH_RECT, value_matrix)
                 img = cv2.morphologyEx(img, cv2.MORPH_BLACKHAT, element_estr)
 
-
         return img
-
-
