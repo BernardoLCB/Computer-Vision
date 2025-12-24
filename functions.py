@@ -60,16 +60,16 @@ def findShapes(contours, img, hierarquia):
     for i, contour in enumerate(contours):
         name_contour, color, approx = findContour(contour)
         choices = ["Triangle", "Pentagon", "Star"]
+        
         if name_contour in choices:
             draw_contour(name_contour, color, approx, img, contour)
 
 
-
-#========================================================================================#
-'''Função responsável por aplicar filtros de suavização na imagem de entrada'''
-#========================================================================================#
-
 def SmoothingFilters(value,img):
+    
+#========================================================================================#
+# Função responsável por aplicar filtros de suavização na imagem de entrada#
+#========================================================================================#
 
     #FILTRO DE GAUSS
     if value == 1:
@@ -97,11 +97,11 @@ def SmoothingFilters(value,img):
     return img
 
 
-#========================================================================================#
-'''Função responsável por aplicar operações morfológicas na imagem de entrada.'''
-#========================================================================================#
-
 def MorphologyOperations(img, slider_value):
+
+#========================================================================================#
+# Função responsável por aplicar operações morfológicas na imagem de entrada.#
+#========================================================================================#
 
     value_matrix = (5,5)
     kernel = np.ones(value_matrix , np.uint8)
